@@ -1,0 +1,62 @@
+name: inception
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - "0.0.0.0:443:443"
+    networks:
+      - inception
+    volumes:
+      - wp_files:/var/www/html:rw
+    env_file:
+      - .env
+    restart: always
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    networks:
+      - inception
+    volumes:
+      - wp_files:/var/www/html:rw
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - mariadb
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    networks:
+      - inception
+    volumes:
+      - wp_db:/var/lib/mysql:rw
+    env_file:
+      - .env
+    restart: always
+
+volumes:
+  wp_files:
+    name: wp_files
+    labels:
+      fr.42.jonnavar.description: "Persistence of WordPress code and uploaded content"
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/jonnavar/data/wp_files
+  wp_db:
+    name: wp_db
+    labels:
+      fr.42.jonnavar.description: "MariaDB persistent storage"
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/jonnavar/data/wp_db
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
