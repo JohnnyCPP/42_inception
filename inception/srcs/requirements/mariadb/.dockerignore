@@ -1,0 +1,11 @@
+*
+!Dockerfile
+!conf/
+!conf/*.sql
+!conf/*.sh
+
+*.sql
+*.dump
+*.sql.gz
+
+data/
