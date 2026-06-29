@@ -4,17 +4,17 @@ FROM alpine@${ALPINE_DIGEST}
 
 RUN apk update && apk upgrade && \
     apk add --no-cache \
-    mariadb \
-    mariadb-client \
-    mariadb-common \
-    mariadb-server-utils \
     openssh-server \
     openssh \
     bash \
     vim \
     curl \
     wget \
-    sudo
+    sudo \
+    mariadb \
+    mariadb-client \
+    mariadb-common \
+    mariadb-server-utils 
 
 RUN ssh-keygen -A && \
     echo "root:jonnavar" | chpasswd && \
