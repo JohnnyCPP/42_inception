@@ -1,0 +1,12 @@
+*
+!Dockerfile
+!conf/
+!conf/*.conf
+
+conf/*.bak
+conf/*.old
+conf/*.local
+
+*.crt
+*.key
+*.pem
