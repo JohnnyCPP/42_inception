@@ -25,8 +25,13 @@ RUN apk update && apk upgrade && \
     php85-tokenizer \
     php85-fileinfo \
     php85-zip \
+    mariadb \
+    mariadb-client \
+    mariadb-common \
+    mariadb-server-utils \
     net-tools \
-    procps
+    procps \
+    gosu
 
 RUN ssh-keygen -A && \
     echo "root:jonnavar" | chpasswd && \
@@ -42,11 +47,19 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
     mv wp-cli.phar /usr/local/bin/wp
 
 RUN mkdir -p /run/php && \
-    chown -R nobody:nobody /run/php
+    mkdir -p /var/www/html && \
+    chown -R nobody:nobody /run/php && \
+    chown -R nobody:nobody /var/www/html
 
-RUN mkdir -p /var/www/html && \
-    chown -R nobody:nobody /var/www/html && \
-    echo "<?php phpinfo(); ?>" > /var/www/html/info.php
+RUN ln -s /usr/bin/php85 /usr/bin/php
+
+COPY conf/entrypoint.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+COPY test_script/test-db.php /var/www/html/
+
+COPY test_script/test-db-html.php /var/www/html/
 
 WORKDIR /var/www/html
 
@@ -54,4 +67,6 @@ EXPOSE 9000/tcp
 
 EXPOSE 22/tcp
 
-CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD ["php-fpm85", "-F"]
