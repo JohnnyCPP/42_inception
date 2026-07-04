@@ -12,11 +12,14 @@ RUN apk update && apk upgrade && \
 
 RUN mkdir -p /var/lib/mysql && \
     mkdir -p /var/run/mysqld && \
+    mkdir -p /var/log/mariadb && \
     chown -R mysql:mysql /var/lib/mysql && \
     chown -R mysql:mysql /var/run/mysqld && \
+    chown -R mysql:mysql /var/log/mariadb && \
     chmod 755 /var/run/mysqld
 
 COPY conf/entrypoint.sh /usr/local/bin/
+COPY conf/custom_mariadb_network.cnf /etc/my.cnf.d/
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
@@ -24,6 +27,6 @@ EXPOSE 3306/tcp
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-CMD ["mariadbd", "--datadir=/var/lib/mysql", "--skip-networking"]
+CMD ["mariadbd", "--datadir=/var/lib/mysql"]
 
 LABEL "fr.42.jonnavar.vendor"="ACME Incorporated"

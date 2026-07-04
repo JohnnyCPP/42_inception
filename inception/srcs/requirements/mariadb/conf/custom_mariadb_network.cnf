@@ -1,0 +1,21 @@
+[mariadbd]
+# bind to all interfaces to accept connections from other containers
+bind-address = 0.0.0.0
+
+# performance settings
+max_allowed_packet = 256M
+innodb_buffer_pool_size = 256M
+max_connections = 100
+
+# character set
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# logging
+log_error = /var/log/mariadb/error.log
+
+# skip reverse DNS lookups (faster connections)
+skip_name_resolve = 1
+
+# disable symbolic links
+symbolic_links = 0

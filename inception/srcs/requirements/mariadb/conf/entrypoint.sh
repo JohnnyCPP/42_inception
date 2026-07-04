@@ -94,6 +94,7 @@ EOF
         echo "Waiting for MariaDB to shutdown"
         sleep 1
     done
+    sed -i 's/^skip-networking/#skip-networking/' /etc/my.cnf.d/mariadb-server.cnf
     echo "MariaDB shutdown complete"
 else
     echo "Executing MariaDB"
