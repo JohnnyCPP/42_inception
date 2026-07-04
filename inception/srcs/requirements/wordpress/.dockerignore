@@ -1,0 +1,16 @@
+tests/
+test-*.php
+
+wp-config-local.php
+*.sql
+
+wp-content/uploads/
+
+composer.json
+composer.lock
+package.json
+node_modules/
+
+.env
+.env.example
+.env.local
