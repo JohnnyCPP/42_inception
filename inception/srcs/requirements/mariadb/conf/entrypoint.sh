@@ -83,6 +83,8 @@ DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DROP DATABASE IF EXISTS test;
 DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+CREATE USER IF NOT EXISTS 'healthcheck'@'localhost' IDENTIFIED BY '';
+GRANT USAGE ON *.* TO 'healthcheck'@'localhost';
 CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
 CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
 GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
@@ -94,10 +96,11 @@ EOF
         echo "Waiting for MariaDB to shutdown"
         sleep 1
     done
-    sed -i 's/^skip-networking/#skip-networking/' /etc/my.cnf.d/mariadb-server.cnf
     echo "MariaDB shutdown complete"
 else
     echo "Executing MariaDB"
 fi
+
+sed -i 's/^skip-networking/#skip-networking/' /etc/my.cnf.d/mariadb-server.cnf
 
 exec gosu mysql "$@"

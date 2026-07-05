@@ -4,6 +4,7 @@ services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx
+    init: true
     ports:
       - "0.0.0.0:443:443"
     networks:
@@ -11,30 +12,52 @@ services:
     volumes:
       - wp_files:/var/www/html:rw
     env_file:
-      - .env
+      - ../.env
     restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "https://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      - wordpress
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
+    init: true
     networks:
       - inception
     volumes:
       - wp_files:/var/www/html:rw
     env_file:
-      - .env
+      - ../.env
     restart: always
+    healthcheck:
+      test: ["CMD", "wp", "--allow-root", "core", "is-installed", "--path=/var/www/html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
     depends_on:
       - mariadb
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
+    init: true
     networks:
       - inception
     volumes:
       - wp_db:/var/lib/mysql:rw
     env_file:
-      - .env
+      - ../.env
     restart: always
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
 
 volumes:
   wp_files:

@@ -5,7 +5,8 @@ FROM alpine@${ALPINE_DIGEST}
 RUN apk update && apk upgrade && \
     apk add --no-cache \
     nginx \
-    openssl
+    openssl \
+    curl
 
 RUN mkdir -p /etc/nginx/ssl && \
     mkdir -p /var/www/html

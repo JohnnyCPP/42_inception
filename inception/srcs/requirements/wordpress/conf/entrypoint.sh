@@ -48,15 +48,16 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
         --allow-root \
         --path=/var/www/html
     
-    chown -R nobody:nobody /var/www/html
-    chown -R nobody:nobody /var/log/php85
-    chmod -R 755 /var/www/html
-    chmod 644 /var/www/html/wp-config.php
-    
     echo "WordPress installation complete!"
 else
     echo "WordPress already installed."
 fi
+
+
+chown -R nobody:nobody /var/www/html
+chown -R nobody:nobody /var/log/php85
+chmod -R 755 /var/www/html
+chmod 644 /var/www/html/wp-config.php
 
 
 exec gosu nobody php-fpm85 -F
