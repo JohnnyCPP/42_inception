@@ -3,6 +3,8 @@ name: inception
 services:
   nginx:
     container_name: nginx
+    image: nginx:1.0
+    pull_policy: never
     build: ./requirements/nginx
     init: true
     ports:
@@ -24,6 +26,8 @@ services:
       - wordpress
   wordpress:
     container_name: wordpress
+    image: wordpress:1.0
+    pull_policy: never
     build: ./requirements/wordpress
     init: true
     networks:
@@ -43,6 +47,8 @@ services:
       - mariadb
   mariadb:
     container_name: mariadb
+    image: mariadb:1.0
+    pull_policy: never
     build: ./requirements/mariadb
     init: true
     networks:
