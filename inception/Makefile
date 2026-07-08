@@ -127,12 +127,12 @@ help:
 	@echo "  make hostnet            - list listening network interfaces"
 	@echo "  make net                - list all networks"
 	@echo "  make netips             - show ip addresses of containers"
-	@echo "  make port-%             - list open ports of <container>"
+	@echo "  make port-<container>   - list open ports of <container>"
 	@echo
 	@echo "Image management"
 	@echo
 	@echo "  make build              - build images"
-	@echo "  make build-%            - build <image>"
+	@echo "  make build-<image>      - build <image>"
 	@echo "  make img                - list all images"
 	@echo "  make rebuild            - build images without checking if they already exist"
 	@echo "  make rm_images          - remove images of the project"
