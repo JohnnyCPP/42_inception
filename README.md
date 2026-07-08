@@ -33,4 +33,12 @@ Key features:
 
 ## Run
 
-TODO
+Clone the repository and run the following make targets:
+
+```bash
+git clone https://github.com/JohnnyCPP/42_inception.git
+cd 42_inception
+make help
+make inception
+make status
+```
