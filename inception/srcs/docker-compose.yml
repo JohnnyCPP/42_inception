@@ -14,7 +14,7 @@ services:
     volumes:
       - wp_files:/var/www/html:rw
     env_file:
-      - ../.env
+      - ./.env
     restart: always
     healthcheck:
       test: ["CMD", "curl", "-k", "-f", "https://localhost"]
@@ -35,7 +35,7 @@ services:
     volumes:
       - wp_files:/var/www/html:rw
     env_file:
-      - ../.env
+      - ./.env
     restart: always
     healthcheck:
       test: ["CMD", "wp", "--allow-root", "core", "is-installed", "--path=/var/www/html"]
@@ -56,7 +56,7 @@ services:
     volumes:
       - wp_db:/var/lib/mysql:rw
     env_file:
-      - ../.env
+      - ./.env
     restart: always
     healthcheck:
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "healthcheck"]

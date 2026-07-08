@@ -3,4 +3,9 @@
 *.env
 *.env.*
 
-!.env.example
+srcs/.env
+srcs/.env.*
+srcs/*.env
+srcs/*.env.*
+
+!srcs/.env.example
