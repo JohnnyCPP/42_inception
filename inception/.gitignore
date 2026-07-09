@@ -9,3 +9,5 @@ srcs/*.env
 srcs/*.env.*
 
 !srcs/.env.example
+
+secrets/
