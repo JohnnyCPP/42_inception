@@ -13,12 +13,13 @@ All services are orchestrated using Docker Compose, with persistent data stored 
 
 ### Project Architecture
 
+```
                     ┌────────────────────────────────────────────┐
                     │            DOCKER NETWORK                  │
                     │            (inception)                     │
                     │                                            │
                     │    ┌──────────────┐                        │
-User ──── HTTPS ───►│    │   NGINX      │                        │
+User ──── HTTPS ───►│───►│   NGINX      │                        │
                     │    │  (Port 443)  │                        │
                     │    │   Web Server │                        │
                     │    └──────┬───────┘                        │
@@ -43,6 +44,7 @@ User ──── HTTPS ───►│    │   NGINX      │                 
                     │    └──────────────┘                        │
                     │                                            │
                     └────────────────────────────────────────────┘
+```
 
 ### Services Overview
 
