@@ -53,7 +53,7 @@ NGINX:
 - Container: nginx
 - Port: 443 (exposed to host)
 - Base Image: Alpine 3.23.5 (image digest)
-- Purpose: Web server, SSL termination, single entry point
+- Purpose: Web server, TLS communication, single entry point
 - Features: TLSv1.2/TLSv1.3 only, self-signed certificates
 
 WORDPRESS + PHP-FPM:
