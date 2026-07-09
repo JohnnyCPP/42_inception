@@ -18,7 +18,7 @@ All services are orchestrated using Docker Compose, with persistent data stored 
                     │            (inception)                     │
                     │                                            │
                     │    ┌──────────────┐                        │
-User ──── HTTPS ───►│ ──►│   NGINX      │                        │
+User ──── HTTPS ───►│    │   NGINX      │                        │
                     │    │  (Port 443)  │                        │
                     │    │   Web Server │                        │
                     │    └──────┬───────┘                        │
